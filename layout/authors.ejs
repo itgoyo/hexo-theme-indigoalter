@@ -1,0 +1,19 @@
+<%- partial('_partial/header', {
+    title: locals.title || theme.author_title,
+    hdClass: 'archives-header'
+}) %>
+<div class="container body-wrap fade">
+    <%
+    const count_posts = function(author) {
+        return site.posts.filter(function(post) {
+            return post.author === author
+        }).length
+    }
+
+    site.authors.map(function(author){
+    %>
+    <div class="waterfall">
+        <%- partial('_partial/author', {href: "/authors/" + author_to_url.call(this, author) + "/", name: author, postCount: count_posts(author)}) %>
+    </div>
+    <% }) %>
+</div>

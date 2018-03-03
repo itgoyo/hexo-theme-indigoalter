@@ -1,0 +1,48 @@
+<aside id="menu" style="
+    width: 300px;"<% if((is_post() || page.layout === 'page') && theme.hideMenu){ %>class="hide"<% } %> >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(<%- url_for(theme.brand) %>)">
+      <div class="brand" style="
+          width: 300px;">
+        <a href="<%- config.root %>" class="avatar waves-effect waves-circle waves-light">
+          <img src="<%- url_for(theme.avatar) %>">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname"><%- config.author %></h5>
+          <%- mail_to(theme.email, theme.email, {class: 'mail'}) %>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col" style="
+        width: 300px;">
+      <ul class="nav">
+        <%
+          var menuItem, isActive = function(item) {
+              var pageUrl = url_for(page.path)
+              return item.url === '/' ? pageUrl === url_for(item.url + 'index.html') : _.startsWith(pageUrl, url_for(item.url))
+          };
+          for (var i in theme.menu) {
+            menuItem = theme.menu[i];
+          %>
+            <li class="waves-block waves-effect<% if(isActive(menuItem)){ %> active<% } %>">
+              <a href="<%- url_for(menuItem.url) %>" <% if(menuItem.target){ %>target="_blank"<% } %> >
+                <i class="icon icon-lg icon-<%= i %>"></i>
+                <%=(menuItem.text || _.startCase(i)) %>
+              </a>
+            </li>
+        <% } %>
+
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=270 src="https://music.163.com/outchain/player?type=0&id=120897804&auto=0&height=430"></iframe>
+
+        <div class="div_right_bottom" align="center">
+          <img src="/assets/getqrcode.jpeg">
+          微信公众号
+          </div>
+
+      </ul>
+    </div>
+  </div>
+</aside>
